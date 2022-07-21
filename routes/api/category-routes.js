@@ -22,7 +22,13 @@ router.get("/:id", (req, res) => {
     where: { id: req.params.id },
     include: [Product],
   })
-    .then(dbCategoryData => res.json(dbCategoryData))
+    .then(dbCategoryData => {
+      if (!dbCategoryData[0]) {
+        res.status(404).json({ message: "No category found with this id." });
+        return;
+      }
+      res.json(dbCategoryData);
+    })
     .catch(err => res.status(500).json(err));
 });
 
