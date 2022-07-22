@@ -6,7 +6,7 @@ const { Tag, Product, ProductTag } = require("../../models");
 router.get("/", (req, res) => {
   // find all tags
   Tag.findAll({
-    include: [Product, ProductTag],
+    include: [Product],
   })
     // be sure to include its associated Product data
     .then(dbTagsData => res.json(dbTagsData))
@@ -17,7 +17,7 @@ router.get("/:id", (req, res) => {
   // find a single tag by its `id`
   Tag.findOne({
     where: { id: req.params.id },
-    include: [Product, ProductTag],
+    include: [Product],
   })
     // be sure to include its associated Product data
     .then(dbTagsData => {
